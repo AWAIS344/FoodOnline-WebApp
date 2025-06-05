@@ -7,7 +7,7 @@ class UserManager(BaseUserManager):
 
     def create_user(self,first_name,last_name,email,username,password=None):
 
-        if not email and username:
+        if not email or not username:
             raise ValueError("User and Email Both are Required")
         
         user = self.model(
