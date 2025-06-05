@@ -55,7 +55,7 @@ class User(AbstractBaseUser):
     email=models.EmailField(max_length=100 , unique=True)
     username=models.CharField(max_length=50, unique=True)
     phone_number=models.CharField(max_length=12, unique=True,null=True)
-    role=models.PositiveSmallIntegerField(choices=role_choices)
+    role=models.PositiveSmallIntegerField(choices=role_choices, blank=True , null= True)
 
     #RequiredFields
     date_joined=models.DateTimeField(auto_now_add=True)
@@ -65,12 +65,12 @@ class User(AbstractBaseUser):
     is_staff=models.BooleanField(default=False)
     is_active=models.BooleanField(default=False)
     is_superadmin=models.BooleanField(default=False)
-
-    USERNAME_FIELD='email'
+ 
+    USERNAME_FIELD='email'  #batata hai ke login ke liye konsa field use hoga
 
     REQUIRED_FIELDS=["first_name","last_name","username"]
 
-    def has_perm(self,perm , obj=None):
+    def has_perm(self,perm,obj=None):
         return self.is_admin
     
     def has_module_perms(self,app_label):
@@ -85,5 +85,22 @@ class User(AbstractBaseUser):
         return self.username
     
 
+class UserProfile(models.Model):
+    user = models.OneToOneField(User,blank=True,null=True,on_delete=models.CASCADE)
+    profile_image=models.ImageField(upload_to="user/profile_img")
+    cover_image=models.ImageField(upload_to="user/cover_img")
+    address_line1=models.CharField(max_length=100,blank=True,null=True)
+    address_line2=models.CharField(max_length=100,blank=True,null=True)
+    state=models.CharField(max_length=30,blank=True,null=True)
+    city=models.CharField(max_length=50,blank=True,null=True)
+    pincode=models.CharField(max_length=6,blank=True,null=True)
+    logitude=models.CharField(max_length=20,blank=True,null=True)
+    latitude=models.CharField(max_length=20,blank=True,null=True)
+    created_at=models.DateTimeField(auto_now_add=True)
+    modified_at=models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.user.email
+    
 
     
