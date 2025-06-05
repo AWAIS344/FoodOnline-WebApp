@@ -34,6 +34,7 @@ class UserManager(BaseUserManager):
         user.is_active=True
         user.is_staff=True
         user.is_superadmin=True
+        user.save(using=self._db)
         return user
 
 
@@ -62,7 +63,7 @@ class User(AbstractBaseUser):
     modifies=models.DateTimeField(auto_now=True)
     is_admin=models.BooleanField(default=False)
     is_staff=models.BooleanField(default=False)
-    is_actve=models.BooleanField(default=False)
+    is_active=models.BooleanField(default=False)
     is_superadmin=models.BooleanField(default=False)
 
     USERNAME_FIELD='email'
