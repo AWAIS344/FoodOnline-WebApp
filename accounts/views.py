@@ -20,7 +20,8 @@ def RegisterUser(request):
             return redirect("register")
         else:
             print(f"Form Issue : {form.errors}")
-            form=UserRegForm()
+    else:
+        form=UserRegForm()
     
     context={"form":form}
     return render(request,"registration.html",context)
