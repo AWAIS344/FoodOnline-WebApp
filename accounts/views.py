@@ -14,9 +14,12 @@ def RegisterUser(request):
         if form.is_valid():
             user=form.save(commit=False)
             user.role=User.CUSTOMER
+            print(user)
             user.save()
             return redirect("register")
-
+        else:
+            print(f"Form Issue : {form.errors}")
+            form=UserRegForm()
     
     context={"form":form}
     return render(request,"registration.html",context)
