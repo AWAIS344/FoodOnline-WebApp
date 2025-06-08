@@ -12,9 +12,10 @@ def RegisterUser(request):
     if request.method == "POST":
         form=UserRegForm(request.POST)
         if form.is_valid():
+            password=form.cleaned_data['password']
             user=form.save(commit=False)
             user.role=User.CUSTOMER
-            print(user)
+            user.set_password(password)
             user.save()
             return redirect("register")
         else:
