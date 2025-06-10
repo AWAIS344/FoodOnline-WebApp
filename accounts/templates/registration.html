@@ -18,6 +18,19 @@
                             <div id="restaurant-sets-holder">
                                 <form class="form-fields-set foodbakery-dev-restaurant-form" method="POST" action="{% url  'register' %}">
                                     {% csrf_token %}
+                                    {% for field in form %}
+
+                                    {% if field.errors %}
+
+                                    {% for error in field.errors  %}
+
+                                    <li style="color:red" >{{error}} </li>
+                                    
+                                    {% endfor %}
+                                    
+                                    {% endif %}
+                                    
+                                    {% endfor %}
                                     <ul class="register-add-restaurant-tab-container restaurant-information-tab-container">
                                         <li>
                                             <div class="row">
