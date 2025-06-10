@@ -2,11 +2,12 @@
 
 {% for msg  in messages  %}
 
-<div class="alert alert-warning alert-dismissible fade show" role="alert">
-  {{msg}}
+<div class="alert alert-success show-notification" role="alert">
+  
   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
     <span aria-hidden="true">&times;</span>
   </button>
+  {{msg}}
 </div>
 
 {% endfor %}
