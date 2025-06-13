@@ -16,7 +16,7 @@
                             <p class="text-center">Please fill this form to get your <strong>Restaurant</strong> Register with Us ot get more Customers.</p>
                             <hr>
                             <div id="restaurant-sets-holder">
-                                <form class="form-fields-set foodbakery-dev-restaurant-form" method="POST" action="{% url  'register' %}">
+                                <form class="form-fields-set foodbakery-dev-restaurant-form" method="POST" action="{% url 'registervendor' %}"  enctype="multipart/form-data">
                                     {% csrf_token %}
                                     {% for field in form %}
 
@@ -50,6 +50,18 @@
                                                                     <div class="field-holder">
                                                                         <label>Username</label>{{form.username}}</div>
                                                                 </div>
+                                                                
+                                                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                                                    <div class="field-holder">
+                                                                        <label>Restaurant Name </label>{{v_form.vendor_name}}</div>
+                                                                </div>
+
+                                                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                                                    <div class="field-holder">
+                                                                        <label>Restaurant License </label>{{v_form.vendor_license}}</div>
+                                                                </div>
+
+
 
                                                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                                                     <div class="field-holder">

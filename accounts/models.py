@@ -42,11 +42,11 @@ class User(AbstractBaseUser):
 
     objects=UserManager()
 
-    RESTAURENT=1
+    VENDOR=1
     CUSTOMER=2
 
     role_choices=[
-        (RESTAURENT,"Restaurent"),
+        (VENDOR,"Restaurent"),
         (CUSTOMER,"Customer"),
     ]
 
