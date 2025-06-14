@@ -8,6 +8,10 @@ urlpatterns = [
 
     path('login/',views.login, name="login"),
     path('logout/',views.logout, name="logout"),
+
+    # path('myaccount',views.MyAccount,name="myaccount"),
+    # path("vend_dashboard/", views.Vend_dashboard, name="vend_dashboard"),
+    # path("cust_dashboard/", views.Cust_dashboard, name="Cust_dashboard"),
     path('dashboard/',views.dashboard, name="dashboard"),
 
 ]

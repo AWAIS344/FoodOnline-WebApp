@@ -59,5 +59,17 @@ def logout(request):
     messages.info(request,"You have Successfully Logout")
     return redirect("login")
 
+
+# def MyAccount(request):
+#     pass
+
+# def MyAccount(request):
+#     pass
+# def Vend_dashboard(request):
+#     return render(request,"dashboard.html",)
+
+# def Cust_dashboard(request):
+#     return render(request,"dashboard.html",)
+
 def dashboard(request):
     return render(request,"dashboard.html",)

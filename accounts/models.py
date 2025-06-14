@@ -76,6 +76,16 @@ class User(AbstractBaseUser):
     def has_module_perms(self,app_label):
         return True
     
+    def user_role(self):
+
+        if self.role == 1:
+            user_role="Vendor"
+            return user_role
+        
+        elif self.role == 2: 
+            user_role="Customer"
+            return user_role
+    
     class Meta:
         verbose_name = "User"
         verbose_name_plural = "Users"
