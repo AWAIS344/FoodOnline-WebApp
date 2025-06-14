@@ -3,12 +3,17 @@ from .models import User
 from django.shortcuts import redirect
 from django.http import HttpResponse
 from .form import UserRegForm
-from django.contrib import messages
+from django.contrib import messages,auth
 
 # Create your views here.
 
 
 def RegisterUser(request):
+
+    if request.user.is_authenticated:
+        messages.warning(request,"Your are already LoggedIn!")
+        return redirect("dashboard")
+    
     form=UserRegForm()
     if request.method == "POST":
         form=UserRegForm(request.POST)
@@ -30,11 +35,29 @@ def RegisterUser(request):
 
 
 def login(request):
-    context={}
-    return render(request,"login.html",context)
+
+    if request.user.is_authenticated:
+        messages.warning(request,"Your are already LoggedIn!")
+        return redirect("dashboard")
+
+    if request.method == 'POST':
+        email=request.POST['email']
+        password=request.POST['password']
+
+        user=auth.authenticate(email=email,password=password)
+        if user is not None:
+            auth.login(request,user)
+            messages.success(request,"You have Successfully Loggedin!")
+            return redirect("dashboard")
+        else:
+            messages.error(request,"Invalid Credentials")
+        
+    return render(request,"login.html",)
 
 def logout(request):
-    pass
+    auth.logout(request)
+    messages.info(request,"You have Successfully Logout")
+    return redirect("login")
 
 def dashboard(request):
-    pass
+    return render(request,"dashboard.html",)
