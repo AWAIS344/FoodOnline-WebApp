@@ -80,11 +80,10 @@ class User(AbstractBaseUser):
 
         if self.role == 1:
             user_role="Vendor"
-            return user_role
         
         elif self.role == 2: 
             user_role="Customer"
-            return user_role
+        return user_role
     
     class Meta:
         verbose_name = "User"

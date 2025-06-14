@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>welcome {{user.first_name}}</h2> 
+
+<p> {{user.user_role}}</p>
+<div class="show-notification">
+
+    {% include "includes/alerts.html" %}
+
+</div>
+
+                                                   
+                                                
+{% endblock content %}
+
+
+

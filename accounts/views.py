@@ -4,6 +4,8 @@ from django.shortcuts import redirect
 from django.http import HttpResponse
 from .form import UserRegForm
 from django.contrib import messages,auth
+from.utils import detectuser
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -12,7 +14,7 @@ def RegisterUser(request):
 
     if request.user.is_authenticated:
         messages.warning(request,"Your are already LoggedIn!")
-        return redirect("dashboard")
+        return redirect("myaccount")
     
     form=UserRegForm()
     if request.method == "POST":
@@ -38,7 +40,7 @@ def login(request):
 
     if request.user.is_authenticated:
         messages.warning(request,"Your are already LoggedIn!")
-        return redirect("dashboard")
+        return redirect("myaccount")
 
     if request.method == 'POST':
         email=request.POST['email']
@@ -48,7 +50,7 @@ def login(request):
         if user is not None:
             auth.login(request,user)
             messages.success(request,"You have Successfully Loggedin!")
-            return redirect("dashboard")
+            return redirect("myaccount")
         else:
             messages.error(request,"Invalid Credentials")
         
@@ -60,16 +62,19 @@ def logout(request):
     return redirect("login")
 
 
-# def MyAccount(request):
-#     pass
 
-# def MyAccount(request):
-#     pass
-# def Vend_dashboard(request):
-#     return render(request,"dashboard.html",)
+@login_required(login_url="login")
+def MyAccount(request):
+    user=request.user
+    user_url = detectuser(user)
+    return redirect(user_url)
 
-# def Cust_dashboard(request):
-#     return render(request,"dashboard.html",)
 
-def dashboard(request):
-    return render(request,"dashboard.html",)
+@login_required(login_url="login")
+def Vend_dashboard(request):
+    return render(request,"vend_dashboard.html",)
+
+
+@login_required(login_url="login")
+def Cust_dashboard(request):
+    return render(request,"cust_dashboard.html",)
