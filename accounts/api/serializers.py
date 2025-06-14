@@ -17,6 +17,10 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
             'password': {'write_only': True},
         }
 
+    def __init__(self, *args, **kwargs):
+        self.role = kwargs.pop('role', User.CUSTOMER)  # 👈 Default is CUSTOMER
+        super().__init__(*args, **kwargs)
+
     def validate(self, attrs):
         if attrs['password'] != attrs['confirm_password']:
             raise serializers.ValidationError("Passwords do not match.")
@@ -27,7 +31,6 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         password = validated_data.pop('password')
         user = User(**validated_data)
         user.set_password(password)
-        user.role = User.CUSTOMER
+        user.role = self.role  # 👈 Assign role dynamically
         user.save()
         return user
-2
