@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+
+{% block content %}
+
+<div class="main-section">
+			<div class="page-section nopadding cs-nomargin" style="margin-top: 0px;padding-top: 60px;padding-bottom: 60px;margin-bottom: 0px;">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+							<div class="user-dashboard loader-holder" style="min-height: auto; width: 450px;">
+								<div class="user-holder">
+                            <h4 class="text-center" style="margin-bottom: 0;">  <strong>SIGN IN</strong></h4>
+                            <p class="text-center">Order Your Favourite Food from Your Favourite Restaurant </p>
+                            <hr>
+                            <div id="restaurant-sets-holder">
+                                <form class="form-fields-set foodbakery-dev-restaurant-form" method="POST" action="{% url  'login' %}">
+                                    {% csrf_token %}
+                                    
+                                    <ul class="register-add-restaurant-tab-container restaurant-information-tab-container">
+                                        <li>
+                                            <div class="row">
+                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                    <div class="row">
+                                                        
+                                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                                    <div class="field-holder">
+                                                                        <label>Email</label>
+                                                                        <input type="email" name="email" id="" placeholder="Enter Your Email">
+                                                                    </div>
+                                                                </div>
+
+
+                                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                                    <div class="field-holder">
+                                                                        <label>Password</label>
+                                                                    <input type="password" name="password" id="" placeholder="Enter Your Password" ></div>
+                                                                </div>
+                                                              
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li style="color:red">{{form.non_field_errors}}</li>
+                                        <li>
+                                            <div class="row">
+                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                    <div class="field-holder">
+                                                        <div class="payment-holder">
+                                                            <input type="submit" value="Submit" id="btn-next-restaurant-information" class="bgcolor">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                   {% include "includes/alerts.html" %}
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </form>
+                            </div>
+                        </div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+{% endblock content %}

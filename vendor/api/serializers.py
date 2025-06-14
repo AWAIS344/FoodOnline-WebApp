@@ -17,7 +17,6 @@ class VendorSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         user_data = validated_data.pop('user')
 
-        # Use the UserRegistrationSerializer with vendor role
         user_serializer = UserRegistrationSerializer(data=user_data, role=User.VENDOR)
         user_serializer.is_valid(raise_exception=True)
         user = user_serializer.save()

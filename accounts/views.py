@@ -27,3 +27,14 @@ def RegisterUser(request):
     
     context={"form":form}
     return render(request,"registration.html",context)
+
+
+def login(request):
+    context={}
+    return render(request,"login.html",context)
+
+def logout(request):
+    pass
+
+def dashboard(request):
+    pass
