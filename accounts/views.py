@@ -4,7 +4,7 @@ from django.shortcuts import redirect
 from django.http import HttpResponse
 from .form import UserRegForm
 from django.contrib import messages,auth
-from.utils import detectuser
+from.utils import detectuser,send_email_verfication
 from django.contrib.auth.decorators import login_required,user_passes_test
 
 # Create your views here.
@@ -30,6 +30,7 @@ def RegisterUser(request):
             user.role=User.CUSTOMER
             user.set_password(password)
             user.save()
+            send_email_verfication(request,user)
             messages.success(request,"You have successfully Registered!")
             return redirect("register")
         else:
@@ -66,6 +67,9 @@ def logout(request):
     messages.info(request,"You have Successfully Logout")
     return redirect("login")
 
+
+def Activate(request,uidb64,token):
+    pass
 
 
 @login_required(login_url="login")

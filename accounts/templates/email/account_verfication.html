@@ -1,0 +1,16 @@
+{% autoescape off %}
+
+Hi {{ user.first_name }},
+
+Thank you for registering at FoodOnline!
+
+Please verify your account by clicking the link below:
+
+http://{{ domain }}{% url "activate" uidb64=uid token=token %}
+
+If you did not make this request, you can safely ignore this email.
+
+Best regards,  
+FoodOnline Team
+
+{% endautoescape %}
