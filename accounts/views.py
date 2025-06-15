@@ -5,9 +5,14 @@ from django.http import HttpResponse
 from .form import UserRegForm
 from django.contrib import messages,auth
 from.utils import detectuser
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required,user_passes_test
 
 # Create your views here.
+
+def user_check(required_role):
+    def inner(user):
+        return user.is_authenticated and user.role == required_role
+    return inner
 
 
 def RegisterUser(request):
@@ -71,10 +76,12 @@ def MyAccount(request):
 
 
 @login_required(login_url="login")
+@user_passes_test(user_check(1))
 def Vend_dashboard(request):
     return render(request,"vend_dashboard.html",)
 
 
 @login_required(login_url="login")
+@user_passes_test(user_check(2))
 def Cust_dashboard(request):
     return render(request,"cust_dashboard.html",)

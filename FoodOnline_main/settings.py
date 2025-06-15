@@ -54,6 +54,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+LOGIN_URL = '/account/login/' 
+
 ROOT_URLCONF = 'FoodOnline_main.urls'
 
 TEMPLATES = [
