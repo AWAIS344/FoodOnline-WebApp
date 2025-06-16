@@ -82,7 +82,7 @@ def logout(request):
 def Activate(request,uidb64,token):
     try:
         uid=urlsafe_base64_decode(uidb64).decode()
-        user=User._default_manager(pk=uid)
+        user = User._default_manager.get(pk=uid)
     except(TypeError,ValueError,User.DoesNotExist,OverflowError):
         user=None
     
