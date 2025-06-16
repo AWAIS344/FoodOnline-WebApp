@@ -1,7 +1,11 @@
 from django.shortcuts import render
 from .models import User
+from django.utils.http import urlsafe_base64_decode
 from django.shortcuts import redirect
+from django.core.exceptions import ValidationError
+from django.core.validators import validate_email
 from django.http import HttpResponse
+from django.contrib.auth.tokens import default_token_generator
 from .form import UserRegForm
 from django.contrib import messages,auth
 from.utils import detectuser,send_email_verfication
@@ -16,30 +20,37 @@ def user_check(required_role):
 
 
 def RegisterUser(request):
-
     if request.user.is_authenticated:
-        messages.warning(request,"Your are already LoggedIn!")
+        messages.warning(request, "You are already Logged In!")
         return redirect("myaccount")
+
+    form = UserRegForm()
     
-    form=UserRegForm()
     if request.method == "POST":
-        form=UserRegForm(request.POST)
+        form = UserRegForm(request.POST)
         if form.is_valid():
-            password=form.cleaned_data['password']
-            user=form.save(commit=False)
-            user.role=User.CUSTOMER
+            email = form.cleaned_data['email']
+
+            # Email validation
+            try:
+                validate_email(email)
+            except ValidationError:
+                messages.error(request, "Invalid email address. Please enter a valid email.")
+                return render(request, "registration.html", {"form": form})
+
+            password = form.cleaned_data['password']
+            user = form.save(commit=False)
+            user.role = User.CUSTOMER
             user.set_password(password)
             user.save()
-            send_email_verfication(request,user)
-            messages.success(request,"You have successfully Registered!")
+
+            send_email_verfication(request, user)
+            messages.success(request, "You have successfully Registered! Please check your email for verification.")
             return redirect("register")
         else:
-            print(f"Form Issue : {form.errors}")
-    else:
-        form=UserRegForm()
+            print(f"Form Error: {form.errors}")
     
-    context={"form":form}
-    return render(request,"registration.html",context)
+    return render(request, "registration.html", {"form": form})
 
 
 def login(request):
@@ -69,7 +80,20 @@ def logout(request):
 
 
 def Activate(request,uidb64,token):
-    pass
+    try:
+        uid=urlsafe_base64_decode(uidb64).decode()
+        user=User._default_manager(pk=uid)
+    except(TypeError,ValueError,User.DoesNotExist,OverflowError):
+        user=None
+    
+    if user is not None and default_token_generator.check_token(user,token):
+        user.is_active=True
+        user.save()
+        messages.success(request,'Your Account has Successfully Activated!')
+        return redirect("myaccount")
+    else:
+        messages.error(request,"Invalid Activation Link")
+        return redirect("myaccount")
 
 
 @login_required(login_url="login")
