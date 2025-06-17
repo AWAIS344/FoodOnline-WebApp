@@ -113,3 +113,9 @@ def Vend_dashboard(request):
 @user_passes_test(user_check(2))
 def Cust_dashboard(request):
     return render(request,"cust_dashboard.html",)
+
+
+def Forgot_Password(request):
+
+    return render(request,"forgot_password")
+    
