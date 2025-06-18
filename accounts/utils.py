@@ -38,3 +38,23 @@ def send_email_verfication(request, user):
     except Exception as e:
         print(f"Error sending email: {e}")    
 
+def send_forgot_password_email(request,user):
+    current_site = get_current_site(request)
+    mail_subject = "FooodOnline Forgot Password"
+    
+    message = render_to_string("email/forgot_email.html", {
+        "user": user,
+        "domain": current_site.domain,
+        "uid": urlsafe_base64_encode(force_bytes(user.pk)),
+        "token": default_token_generator.make_token(user)
+    })
+
+    to_email = user.email
+    from_email = settings.DEFAULT_FROM_EMAIL
+
+    try:
+        print(f"Sending verification email to: {to_email}")
+        mail = EmailMessage(mail_subject, message, from_email, to=[to_email])
+        mail.send()
+    except Exception as e:
+        print(f"Error sending email: {e}") 

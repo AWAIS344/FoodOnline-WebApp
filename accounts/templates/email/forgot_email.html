@@ -1,0 +1,16 @@
+{% autoescape off %}
+
+Hi {{ user.first_name }},
+
+Thank you for registering at FoodOnline!
+
+Please click the below link to reset your password:
+
+http://{{ domain }}{% url "reset_password_validate" uidb64=uid token=token %}
+
+If you did not make this request, you can safely ignore this email.
+
+Best regards,  
+FoodOnline Team
+
+{% endautoescape %}

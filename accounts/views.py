@@ -8,7 +8,7 @@ from django.http import HttpResponse
 from django.contrib.auth.tokens import default_token_generator
 from .form import UserRegForm
 from django.contrib import messages,auth
-from.utils import detectuser,send_email_verfication
+from.utils import detectuser,send_email_verfication,send_forgot_password_email
 from django.contrib.auth.decorators import login_required,user_passes_test
 
 # Create your views here.
@@ -116,6 +116,24 @@ def Cust_dashboard(request):
 
 
 def Forgot_Password(request):
+    if request.method == "POST":
+        email=request.POST["email"]
+        if User.objects.filter(email__exact=email):
+            user=User.objects.get(email=email)
 
-    return render(request,"forgot_password")
+            #Custom Helper Function
+            send_forgot_password_email(request,user)
+            messages.success(request, "Link Sent! Please check your email")
+        else:
+            messages.error(request, "Check your Email or Try Again - Error While Fetching the Account")
+
+            return redirect("forgot_password")
+
+    return render(request,"forgot_password.html")
+
+def Reset_Password_Validate(request,uidb64,token):
+    return
+
+def Reset_Password(request):
+    return
     
