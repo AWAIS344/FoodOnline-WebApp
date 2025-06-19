@@ -8,7 +8,7 @@ from django.http import HttpResponse
 from django.contrib.auth.tokens import default_token_generator
 from .form import UserRegForm
 from django.contrib import messages,auth
-from.utils import detectuser,send_email_verfication,send_forgot_password_email
+from.utils import detectuser,send_email_verfication
 from django.contrib.auth.decorators import login_required,user_passes_test
 
 # Create your views here.
@@ -44,7 +44,9 @@ def RegisterUser(request):
             user.set_password(password)
             user.save()
 
-            send_email_verfication(request, user)
+            mail_subject = "FooodOnline Activate Your Acccount"
+            email_template="email/forgot_email.html"
+            send_email_verfication(request,user,mail_subject,email_template)
             messages.success(request, "You have successfully Registered! Please check your email for verification.")
             return redirect("register")
         else:
@@ -121,8 +123,12 @@ def Forgot_Password(request):
         if User.objects.filter(email__exact=email):
             user=User.objects.get(email=email)
 
+
+
             #Custom Helper Function
-            send_forgot_password_email(request,user)
+            mail_subject = "FooodOnline Forgot Password"
+            email_template="email/forgot_email.html"
+            send_email_verfication(request,user,mail_subject,email_template)
             messages.success(request, "Link Sent! Please check your email")
         else:
             messages.error(request, "Check your Email or Try Again - Error While Fetching the Account")

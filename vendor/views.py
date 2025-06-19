@@ -3,6 +3,7 @@ from django.contrib import messages
 from accounts.form import UserRegForm
 from .form import VendorRegForm
 from accounts.models import UserProfile,User
+from accounts.utils import send_email_verfication
 
 # Create your views here.
 def RegisterVendor(request):
@@ -21,6 +22,9 @@ def RegisterVendor(request):
             vendor.user = user
             vendor.user_profile=user_profile
             vendor.save()
+            mail_subject = "FooodOnline Activate Your Acccount"
+            email_template="email/forgot_email.html"
+            send_email_verfication(request,user,mail_subject,email_template)
             messages.success(request,"Your <strong>Restaurent</strong> has successfully Registered! Please wait for Approval - Thanks")
             return redirect("registervendor")
 
