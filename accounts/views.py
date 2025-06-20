@@ -138,8 +138,38 @@ def Forgot_Password(request):
     return render(request,"forgot_password.html")
 
 def Reset_Password_Validate(request,uidb64,token):
-    return
+
+    try:
+        uid=urlsafe_base64_decode(uidb64).decode()
+        user = User._default_manager.get(pk=uid)
+    except(TypeError,ValueError,User.DoesNotExist,OverflowError):
+        user=None
+    
+    if user is not None and default_token_generator.check_token(user,token):
+        request.session['uid']=uid
+        return redirect("reset_password")
+    else:
+        messages.error(request,"This Link Has Been Expired")
+        redirect("myaccount")
 
 def Reset_Password(request):
-    return
+    if request.method == 'POST':
+        password=request.POST["password"]
+        confirm_password=request.POST['confirm_password']
+
+        if password == confirm_password:
+            pk=request.session.get("uid")
+            user=User.objects.get(pk=pk)
+            user.set_password(password)
+            user.is_active=True
+            user.save()
+            mail_subject = "FooodOnline Password Successfully Reset"
+            email_template="email/password_email.html"
+            send_email_verfication(request,user,mail_subject,email_template)
+            messages.success(request,"Password Successfully Reset")
+            return redirect('login')
+        else:
+            messages.error(request,"Both the Password should match")
+            return redirect("reset_password")
+    return render(request,"reset_password.html")
     
