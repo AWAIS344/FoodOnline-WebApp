@@ -12,10 +12,10 @@ def RegisterVendor(request):
     if request.method =="POST":
         form=UserRegForm(request.POST)
         v_form=VendorRegForm(request.POST,request.FILES)
-
         if form.is_valid() and v_form.is_valid():
             user = form.save(commit=False)
             user.role=User.VENDOR
+            user.set_password(form.cleaned_data['password'])
             user.save()
             vendor = v_form.save(commit=False)
             user_profile, created = UserProfile.objects.get_or_create(user=user)

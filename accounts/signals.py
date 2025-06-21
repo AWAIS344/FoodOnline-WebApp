@@ -20,9 +20,7 @@ def post_save_userprofile_creation_signal(sender,instance,created,**kwargs):
             UserProfile.objects.create(user=instance)
             print("profile created dont exts earler")
         print("User Created Successfully")
-
-
-
+        
 @receiver(post_save,sender=User)
 def pre_save_userprofile_creation_signals(sender,instance,**kwargs):
     print(f"Saving : {instance.username}")
