@@ -1,0 +1,17 @@
+{% autoescape off %}
+
+Hi {{ user.first_name }},
+
+Thank you for Using FoodOnline!
+{% if is_approved %}
+Congratulations! Your Resaurent Has Successfully Verified and Approved!
+{% else %}
+
+Sorry! Resaurent Approval Doesnt Made Successful, please check your License!
+
+If you did not make this request, you can safely ignore this email.
+
+Best regards,  
+FoodOnline Team
+
+{% endautoescape %}
