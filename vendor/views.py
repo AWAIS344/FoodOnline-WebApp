@@ -38,3 +38,9 @@ def RegisterVendor(request):
         v_form=VendorRegForm()
     context={"form":form,"v_form":v_form}    
     return render(request,"registervendor.html",context)
+
+
+
+def Vendor_Profile(request):
+    context={}
+    return render(request,"vendor_profile.html",context)

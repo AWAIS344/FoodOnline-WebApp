@@ -1,8 +1,9 @@
-from django.urls import path
+from django.urls import path,include
 from . import views
 from .api.views import RegisterUserAPI
 
 urlpatterns = [
+    path("",views.MyAccount),
     path('registeruser/',views.RegisterUser,name="register"),
     path('api/register/', RegisterUserAPI.as_view(), name='user-register'),
 
@@ -20,5 +21,6 @@ urlpatterns = [
     path("forgot_password/",views.Forgot_Password,name="forgot_password"),
     path("reset_password_validate/<uidb64>/<token>",views.Reset_Password_Validate,name="reset_password_validate"),
     path("reset_password/",views.Reset_Password,name="reset_password"),
-
+    
+    path("vendor/",include("vendor.urls"))
 ]
