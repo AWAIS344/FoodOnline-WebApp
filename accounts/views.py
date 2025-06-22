@@ -7,6 +7,7 @@ from django.core.validators import validate_email
 from django.http import HttpResponse
 from django.contrib.auth.tokens import default_token_generator
 from .form import UserRegForm
+from vendor.models import Vendor
 from django.contrib import messages,auth
 from.utils import detectuser,send_email_verfication
 from django.contrib.auth.decorators import login_required,user_passes_test
