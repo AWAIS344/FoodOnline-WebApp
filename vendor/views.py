@@ -46,8 +46,23 @@ def RegisterVendor(request):
 def Vendor_Profile(request):
     profile=get_object_or_404(UserProfile,user=request.user)
     vendor=get_object_or_404(Vendor,user=request.user)
-    userform=UserProfileForm(instance=profile)
-    vendorform=VendorRegForm(instance=vendor)
+
+    if request.method  == 'POST':
+        userform=UserProfileForm(request.POST,request.FILES,instance=profile)
+        vendorform=VendorRegForm(request.POST,request.FILES,instance=vendor)
+
+        if userform.is_valid() and vendorform.is_valid():
+            userform.save()
+            vendorform.save()
+            messages.success(request,"Profile Successfully Updated")
+            return redirect("vendor-profile")
+        else:
+            messages.error(request,"Please Check Your Info")
+            print(userform.erros)
+            print(vendorform.errors)
+    else:
+        userform=UserProfileForm(instance=profile)
+        vendorform=VendorRegForm(instance=vendor)
     context={
         "profile":profile,
         "userform":userform,

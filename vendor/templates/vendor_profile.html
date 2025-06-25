@@ -21,7 +21,8 @@
 								<div class="user-holder">
 									<h5 class="text-uppercase fw-bold" >Manage Your Restaurant</h5>
 									<!-- My Restaurants Form Start -->
-									<form action="restaurant-location.html">
+									<form action="{% url 'vendor-profile' %}" method="post" enctype="multipart/form-data">
+										{% csrf_token %}
 										<div class="form-fields-set">
 											<ul>
 												<li>
