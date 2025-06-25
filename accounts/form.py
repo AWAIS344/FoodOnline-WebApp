@@ -26,6 +26,7 @@ class UserRegForm(forms.ModelForm):
 
 class UserProfileForm(forms.ModelForm):
     profile_image=forms.ImageField(widget=forms.FileInput(attrs={"class":"btn btn-info"}))
+    cover_image=forms.ImageField(widget=forms.FileInput(attrs={"class":"btn btn-info"}))
     class Meta:
         model = UserProfile
         exclude = ["user", "created_at", "modified_at"]
