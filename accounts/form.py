@@ -1,4 +1,4 @@
-from .models import User
+from .models import User,UserProfile
 from  django import forms
 
 class UserRegForm(forms.ModelForm):
@@ -22,5 +22,13 @@ class UserRegForm(forms.ModelForm):
         if password != confirm_password:
             raise forms.ValidationError(
             "Both The Password Should Match")
+        
+
+class UserProfileForm(forms.ModelForm):
+    profile_image=forms.ImageField(widget=forms.FileInput(attrs={"class":"btn btn-info"}))
+    class Meta:
+        model = UserProfile
+        exclude = ["user", "created_at", "modified_at"]
+
 
     

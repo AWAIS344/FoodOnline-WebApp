@@ -32,3 +32,4 @@ class Vendor(models.Model):
                     mail_subject="Sorry We are Unable to Verify Your Restaurent "
                     send_notification(mail_template,context,mail_subject)
         return super(Vendor,self).save(*args, **kwargs)
+    

@@ -1,7 +1,9 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,get_object_or_404
 from django.contrib import messages
 from accounts.form import UserRegForm
 from .form import VendorRegForm
+from .models import Vendor
+from accounts.form import UserProfileForm
 from accounts.models import UserProfile,User
 from accounts.utils import send_email_verfication
 
@@ -42,5 +44,14 @@ def RegisterVendor(request):
 
 
 def Vendor_Profile(request):
-    context={}
+    profile=get_object_or_404(UserProfile,user=request.user)
+    vendor=get_object_or_404(Vendor,user=request.user)
+    userform=UserProfileForm(instance=profile)
+    vendorform=VendorRegForm(instance=vendor)
+    context={
+        "profile":profile,
+        "userform":userform,
+        "vendorform":vendorform,
+        "vendor":vendor,
+    }  
     return render(request,"vendor_profile.html",context)

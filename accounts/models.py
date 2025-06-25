@@ -100,6 +100,7 @@ class UserProfile(models.Model):
     cover_image=models.ImageField(upload_to="user/cover_img")
     address_line1=models.CharField(max_length=100,blank=True,null=True)
     address_line2=models.CharField(max_length=100,blank=True,null=True)
+    country=models.CharField(max_length=30,blank=True,null=True)
     state=models.CharField(max_length=30,blank=True,null=True)
     city=models.CharField(max_length=50,blank=True,null=True)
     pincode=models.CharField(max_length=6,blank=True,null=True)
