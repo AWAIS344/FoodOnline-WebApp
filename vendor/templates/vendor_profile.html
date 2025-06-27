@@ -46,7 +46,7 @@
 																		{{userform.profile_image}}
 																	</div>
 
-																	<label class="text-danger"> {{userform.profile_image.error}}</label>
+																	<label class="text-danger"> {{userform.profile_image.errors}}</label>
 
 																</div>
 															</div>
@@ -69,6 +69,8 @@
 																	<div class="upload-gallery">
 																		{{userform.cover_image}}
 																	</div>
+
+																	<label class="text-danger"> {{userform.cover_image.errors}}</label>
 																	
 																</div>
 															</div>
@@ -91,6 +93,8 @@
 																	<div class="upload-gallery">
 																		{{vendorform.vendor_license}}
 																	</div>
+
+																	<label class="text-danger"> {{vendorform.vendor_license.errors}}</label>
 																	
 																</div>
 															</div>
