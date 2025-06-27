@@ -8,6 +8,6 @@ urlpatterns = [
     path("api/register/", VendorRegisterAPI.as_view(), name="vendor-register"),
 
     path("",AccountViews.Vend_dashboard,name="vendor"),
-    path("profile",views.Vendor_Profile,name="vendor-profile"),
+    path("profile/",views.Vendor_Profile,name="vendor-profile"),
 
 ]

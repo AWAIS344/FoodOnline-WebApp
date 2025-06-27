@@ -28,11 +28,13 @@ class UserRegForm(forms.ModelForm):
 class UserProfileForm(forms.ModelForm):
     profile_image=forms.FileField(widget=forms.FileInput(attrs={"class":"btn btn-info"}),validators=[allow_only_image_validator])
     cover_image=forms.FileField(widget=forms.FileInput(attrs={"class":"btn btn-info"}),validators=[allow_only_image_validator])
+    address=forms.CharField(widget=forms.TextInput(attrs={"placeholder":"Start Typing..."}))
     class Meta:
         model = UserProfile
         exclude = ["user", "created_at", "modified_at"]
 
 
+        
     #MAKING THE FIELDS READONLY
     def _init__(self,*args, **kwargs):
         super(UserProfileForm,self).__init__(*args, **kwargs)
