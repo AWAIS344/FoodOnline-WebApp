@@ -36,7 +36,7 @@ def RegisterUser(request):
             try:
                 validate_email(email)
             except ValidationError:
-                messages.error(request, "Invalid email address. Please enter a valid email.")
+                messages.error(request, "Invalid email address. Please enter a valid email OR check for typo.")
                 return render(request, "registration.html", {"form": form})
 
             password = form.cleaned_data['password']
@@ -48,7 +48,7 @@ def RegisterUser(request):
             mail_subject = "FooodOnline Activate Your Acccount"
             email_template="email/forgot_email.html"
             send_email_verfication(request,user,mail_subject,email_template)
-            messages.success(request, "You have successfully Registered! Please check your email for verification.")
+            messages.success(request, "You have successfully Registered! Please check you email if not check your spam folder")
             return redirect("register")
         else:
             print(f"Form Error: {form.errors}")
