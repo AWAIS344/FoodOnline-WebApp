@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'rest_framework',
     "accounts",
     "vendor",
+    "menu",
 ]
 
 MIDDLEWARE = [
@@ -163,6 +164,6 @@ EMAIL_HOST_PASSWORD=config("EMAIL_HOST_PASSWORD")
 EMAIL_USE_TLS=True
 DEFAULT_FROM_EMAIL = "FoodOnline MarketPlace <jamescharles877923@gmail.com >"
 
-GOOGLE_API_KEY="AIzaSyDnd9JwZvXty-1gHZihMoFhJtCXmHfeRQg"
+GOOGLE_API_KEY=config("GOOGLE_API_KEY")
 
 
