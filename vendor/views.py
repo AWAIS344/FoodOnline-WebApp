@@ -8,6 +8,7 @@ from .models import Vendor
 from accounts.form import UserProfileForm
 from accounts.models import UserProfile,User
 from accounts.utils import send_email_verfication
+from menu.models import Catagory
 
 # Create your views here.
 def RegisterVendor(request):
@@ -76,4 +77,9 @@ def Vendor_Profile(request):
     return render(request,"vendor_profile.html",context)
 
 def Menu_Builder(request):
-    return render(request,"menu_builder.html")
+    vendor=Vendor.objects.get(user=request.user)
+    catagories=Catagory.objects.filter(vendor=vendor)
+    context={
+        "catagories":catagories
+    }
+    return render(request,"menu_builder.html",context)
