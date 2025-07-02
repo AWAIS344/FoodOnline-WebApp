@@ -74,3 +74,6 @@ def Vendor_Profile(request):
         "vendor":vendor,
     }  
     return render(request,"vendor_profile.html",context)
+
+def Menu_Builder(request):
+    return render(request,"menu_builder.html")

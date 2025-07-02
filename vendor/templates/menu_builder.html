@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+	<div class="main-section">
+			<!--Inclide Cover.html-->
+            {% include "includes/cover.html" %}
+			<div class="page-section account-header buyer-logged-in">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+							<div class="user-account-nav user-account-sidebar">
+								<!-- Incude the Nav bar Heere-->
+                                {% include "includes/v-sidebar.html" %}
+							</div>
+						</div>
+						<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+							<div class="user-dashboard loader-holder">
+								<div class="user-holder">
+									<h5 class="text-uppercase fw-bold" >BUILD YOUR Restaurant MENU</h5>
+									<!-- My Restaurants Form Start -->
+									
+									<!-- My Restaurants Form End -->
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+<div class="show-notification">
+
+    {% include "includes/alerts.html" %}
+
+</div>
+
+                                                   
+                                                
+{% endblock content %}
+
+
+
