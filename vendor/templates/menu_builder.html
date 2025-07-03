@@ -33,9 +33,13 @@
     
     
     <tr>
-      <th >{{forloop.counter}}</th>
-      <td>{{cat.catagory_name}}</td>
-      <td>Edit  Delete</td>
+      <td class="text-left">{{forloop.counter}}</td>
+
+      <td class="text-left">
+		<a href="#" ><p class="font-weight-bold mb-0">{{cat}}</p>
+		<small class="text-muted" >{{cat.description}}</small></a>
+	</td>
+      <td><i class="fa fa-edit" aria-hidden="true"></i>  &nbsp;  <i class="fa fa-trash text-danger" aria-hidden="true"></td>
       
     </tr>
     {% endfor %}
