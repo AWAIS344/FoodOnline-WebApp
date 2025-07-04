@@ -8,8 +8,13 @@ from .models import Vendor
 from accounts.form import UserProfileForm
 from accounts.models import UserProfile,User
 from accounts.utils import send_email_verfication
-from menu.models import Catagory
+from menu.models import Catagory,FoodItems
 
+
+
+def get_vendor(request):
+    vendor=Vendor.objects.get(user=request.user)
+    return vendor
 # Create your views here.
 def RegisterVendor(request):
     # form=UserRegForm()
@@ -76,10 +81,29 @@ def Vendor_Profile(request):
     }  
     return render(request,"vendor_profile.html",context)
 
+
+
+
 def Menu_Builder(request):
-    vendor=Vendor.objects.get(user=request.user)
+    vendor=get_vendor(request)
     catagories=Catagory.objects.filter(vendor=vendor)
     context={
         "catagories":catagories
     }
     return render(request,"menu_builder.html",context)
+
+
+
+@login_required(login_url="login")
+@user_passes_test(user_check(1))
+def Food_Item_By_Catagory(request,pk=None):
+    vendor=get_vendor(request)
+    catagories=get_object_or_404(Catagory,pk=pk)
+    fooditems=FoodItems.objects.filter(catagory=catagories,vendor=vendor)
+
+    context={
+        "fooditems":fooditems,
+        "catagories":catagories,
+    }
+    return render(request,"food_item_by_cat.html",context)
+
