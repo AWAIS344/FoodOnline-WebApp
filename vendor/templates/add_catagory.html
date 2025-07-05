@@ -21,31 +21,33 @@
 								<div class="user-holder">
 									<h5 class="text-uppercase fw-bold" >BUILD YOUR Restaurant MENU</h5>
                                     <hr>
-                                    <h6 class="text-uppercase text-success fw-bold" >Menu Categories</h6>
-                                    <a href="{% url 'add_catagory' %}" class="btn btn-info float-right m-1"> <i class="fa fa-plus" aria-hidden="true"></i> Add Category</a>
-                                    <a href="#" class="btn btn-success float-right m-1"> <i class="fa fa-plus" aria-hidden="true"></i> Add Food</a> 
-                                    <br><br><br>
+                                    <h6 class="text-uppercase  fw-bold">Add New Catagory</h6>
+                                    <br>
 									<!-- My Restaurants Form Start -->
-									<table class="table table-hover table-borderless">
- 
-  <tbody>
-    {% for cat in catagories  %}
-    
-    
-    <tr>
-      <td class="text-left">{{forloop.counter}}</td>
+									 <form action="{% url 'add_catagory' %}" method="POST">
 
-      <td class="text-left">
-		<a href="{% url 'food_item_by_catagory' cat.id %}" ><p class="font-weight-bold mb-0">{{cat}}</p>
-		<small class="text-muted" >{{cat.description}}</small></a>
-	</td>
-      <td><i class="fa fa-edit" aria-hidden="true"></i>  &nbsp;  <i class="fa fa-trash text-danger" aria-hidden="true"></td>
-      
-    </tr>
-    {% endfor %}
-    
-  </tbody>
-</table>
+										{% csrf_token %}
+<div class="form-fields-set">
+<div class="row">
+	<div class="col-lg-12 col-md-12 col-sm-12">
+		<div class="field-holder">
+			<label >Catagory Name *</label>
+			{{form.catagory_name}}
+		</div>
+
+		<div class="field-holder">
+			<label >Description</label>
+			{{form.description}}
+		</div>
+	</div>
+</div>
+</div>
+
+<button type="submit" class="btn btn-info"> <i class="fa fa-check " ></i>  Create</button>
+
+									 </form>
+                                     
+
 									<!-- My Restaurants Form End -->
 
 								</div>

@@ -11,5 +11,7 @@ urlpatterns = [
     path("profile/",views.Vendor_Profile,name="vendor-profile"),
     path("menu-builder/",views.Menu_Builder,name="menu-builder"),
     path("menu-builder/catagory/<int:pk>",views.Food_Item_By_Catagory,name="food_item_by_catagory"),
+    path("menu-builder/catagory/add",views.Add_Catagory,name="add_catagory"),
+
 
 ]

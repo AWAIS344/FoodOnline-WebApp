@@ -9,7 +9,8 @@ from accounts.form import UserProfileForm
 from accounts.models import UserProfile,User
 from accounts.utils import send_email_verfication
 from menu.models import Catagory,FoodItems
-
+from menu.form import CatagoryForm
+from django.utils.text import slugify
 
 
 def get_vendor(request):
@@ -83,7 +84,8 @@ def Vendor_Profile(request):
 
 
 
-
+@login_required(login_url="login")
+@user_passes_test(user_check(1))
 def Menu_Builder(request):
     vendor=get_vendor(request)
     catagories=Catagory.objects.filter(vendor=vendor)
@@ -107,3 +109,22 @@ def Food_Item_By_Catagory(request,pk=None):
     }
     return render(request,"food_item_by_cat.html",context)
 
+
+def Add_Catagory(request):
+    form=CatagoryForm()
+
+    if request.method == "POST":
+       
+        form=CatagoryForm(request.POST)
+        if form.is_valid():
+            catagory_name=form.cleaned_data['catagory_name']
+            catagory=form.save(commit=False)
+            catagory.vendor=get_vendor(request)
+            catagory.slug=slugify(catagory_name)
+            form.save()
+            messages.success(request,"Category Successfully Added")
+            return redirect("menu-builder")
+    context={
+        "form":form
+    }
+    return render(request,"add_catagory.html",context)
