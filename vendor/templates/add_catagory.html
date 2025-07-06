@@ -43,10 +43,25 @@
 </div>
 </div>
 
+{% for field in form  %}
+
+									 {% if field.errors %}
+									 {% for error in field.errors  %}
+									 <li style='color:red'>{{error}}</li>
+									 {% endfor %}
+									 
+									 
+									 
+									 {% endif %}
+									 
+									 {% endfor %}
+
 <button type="submit" class="btn btn-info"> <i class="fa fa-check " ></i>  Create</button>
+
 
 									 </form>
                                      
+									 
 
 									<!-- My Restaurants Form End -->
 

@@ -13,7 +13,9 @@ class Catagory(models.Model):
     class Meta:
         verbose_name='catagory'
         verbose_name_plural='catagories'
-
+        
+    def clean(self):
+        self.catagory_name = self.catagory_name.capitalize()
     def __str__(self):
         return self.catagory_name
 

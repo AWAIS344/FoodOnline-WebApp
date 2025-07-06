@@ -111,7 +111,6 @@ def Food_Item_By_Catagory(request,pk=None):
 
 
 def Add_Catagory(request):
-    form=CatagoryForm()
 
     if request.method == "POST":
        
@@ -124,7 +123,32 @@ def Add_Catagory(request):
             form.save()
             messages.success(request,"Category Successfully Added")
             return redirect("menu-builder")
+    else:
+        form=CatagoryForm()
     context={
         "form":form
     }
     return render(request,"add_catagory.html",context)
+
+
+def Edit_Catagory(request, pk=None):
+    catagory = get_object_or_404(Catagory, pk=pk)
+
+    if request.method == "POST":
+        form = CatagoryForm(request.POST, instance=catagory)
+        if form.is_valid():
+            catagory = form.save(commit=False)
+            catagory_name = form.cleaned_data['catagory_name']
+            catagory.slug = slugify(catagory_name)
+            catagory.vendor = get_vendor(request)
+            catagory.save()
+            messages.success(request, "Category successfully updated.")
+            return redirect("menu-builder")
+    else:
+        form = CatagoryForm(instance=catagory)
+
+    context = {
+        "form": form,
+        "catagory": catagory  # Optional: in case you want to show existing data in template
+    }
+    return render(request, "edit_catagory.html", context)
