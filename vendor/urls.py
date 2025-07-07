@@ -12,7 +12,8 @@ urlpatterns = [
     path("menu-builder/",views.Menu_Builder,name="menu-builder"),
     path("menu-builder/catagory/<int:pk>",views.Food_Item_By_Catagory,name="food_item_by_catagory"),
     path("menu-builder/catagory/add",views.Add_Catagory,name="add_catagory"),
-    path("menu-builder/catagory/edit<int:pk>",views.Edit_Catagory,name="edit_catagory"),
+    path("menu-builder/catagory/edit/<int:pk>",views.Edit_Catagory,name="edit_catagory"),
+    path("menu-builder/catagory/delete/<int:pk>",views.Delete_Catagory,name="delete_catagory"),
 
 
 ]

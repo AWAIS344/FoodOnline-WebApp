@@ -152,3 +152,11 @@ def Edit_Catagory(request, pk=None):
         "catagory": catagory  # Optional: in case you want to show existing data in template
     }
     return render(request, "edit_catagory.html", context)
+
+
+def Delete_Catagory(request,pk=None):
+    catagory=get_object_or_404(Catagory,pk=pk)
+    catagory.delete()
+    messages.success(request, "Category successfully Deleted.")
+    return redirect("menu-builder")
+    
