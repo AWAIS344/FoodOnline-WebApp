@@ -9,7 +9,8 @@ from accounts.form import UserProfileForm
 from accounts.models import UserProfile,User
 from accounts.utils import send_email_verfication
 from menu.models import Catagory,FoodItems
-from menu.form import CatagoryForm
+
+from menu.form import CatagoryForm,FoodItemsForm
 from django.utils.text import slugify
 
 
@@ -160,3 +161,24 @@ def Delete_Catagory(request,pk=None):
     messages.success(request, "Category successfully Deleted.")
     return redirect("menu-builder")
     
+
+
+
+def Add_Fooditem(request):
+    if request.method == "POST":
+        form=FoodItems(request.POST)
+        if form.is_valid():
+            food=form.cleaned_data['catagory_name']
+            food_title=form.save(commit=False)
+            food.vendor=get_vendor(request)
+            food.slug=slugify(food_title)
+            food.save()
+            messages.success(request,"Food Item Successfully Added")
+            return redirect("menu-builder")
+    else:
+        form=FoodItemsForm()
+    context={
+        "form":form
+    }
+    return render(request,"add_food.html",context)
+
