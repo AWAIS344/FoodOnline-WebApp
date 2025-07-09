@@ -33,8 +33,15 @@
 																	<ul class="foodbakery-gallery-holder">
 																		<li class="gal-img">
 																			<div class="drag-list">
+
+
 																				<div class="item-thumb">
+																					{% if profile.profile_image %}
 																					<img class="thumbnail" src="{{profile.profile_image.url}}" alt=" Logo ">
+																					{% else %}
+																					<img class="thumbnail" src="{% static 'images/default-profile.png' %}" alt=" Logo ">
+																					{% endif %}
+																					
 																				</div>
 																			</div>
 																		</li>

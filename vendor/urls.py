@@ -24,7 +24,6 @@ urlpatterns = [
     path("menu-builder/food/delete/<int:pk>",views.Delete_Food,name="delete_food"),
 
 
-
-
+    
 
 ]
