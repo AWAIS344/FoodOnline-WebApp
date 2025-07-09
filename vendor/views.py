@@ -150,7 +150,7 @@ def Edit_Catagory(request, pk=None):
 
     context = {
         "form": form,
-        "catagory": catagory  # Optional: in case you want to show existing data in template
+        "catagory": catagory 
     }
     return render(request, "edit_catagory.html", context)
 
@@ -166,15 +166,17 @@ def Delete_Catagory(request,pk=None):
 
 def Add_Fooditem(request):
     if request.method == "POST":
-        form=FoodItems(request.POST)
+        form=FoodItemsForm(request.POST,request.FILES)
         if form.is_valid():
-            food=form.cleaned_data['catagory_name']
-            food_title=form.save(commit=False)
+            food_title=form.cleaned_data['title']
+            food=form.save(commit=False)
             food.vendor=get_vendor(request)
             food.slug=slugify(food_title)
             food.save()
             messages.success(request,"Food Item Successfully Added")
             return redirect("menu-builder")
+        else:
+            print(form.errors)
     else:
         form=FoodItemsForm()
     context={
