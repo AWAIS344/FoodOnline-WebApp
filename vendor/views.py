@@ -184,3 +184,38 @@ def Add_Fooditem(request):
     }
     return render(request,"add_food.html",context)
 
+
+def Edit_Food(request,pk=None):
+    food=get_object_or_404(FoodItems,pk=pk)
+
+    if request.method == "POST":
+        form = FoodItemsForm(request.POST, request.FILES,instance=food)
+        if form.is_valid():
+            food=form.save(commit=False)
+            food_title=form.cleaned_data['title']
+            food.vendor=get_vendor(request)
+            food.slug=slugify(food_title)
+            food.save()
+            messages.success(request,"Food Item Successfully Updated")
+            return redirect("menu-builder")
+        else:
+            print(form.errors)
+    else:
+        form=FoodItemsForm(instance=food)
+    context={
+        "form":form,
+        "food":food
+    }
+    return render(request,"edit_food.html",context)
+
+
+def Delete_Food(request,pk=None):
+    food=get_object_or_404(FoodItems,pk=pk)
+    food.delete()
+    messages.success(request, "Food successfully Deleted.")
+    return redirect("menu-builder")
+    
+
+
+
+

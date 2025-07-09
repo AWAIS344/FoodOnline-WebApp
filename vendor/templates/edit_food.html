@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+	<div class="main-section">
+			<!--Inclide Cover.html-->
+            {% include "includes/cover.html" %}
+			<div class="page-section account-header buyer-logged-in">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+							<div class="user-account-nav user-account-sidebar">
+								<!-- Incude the Nav bar Heere-->
+                                {% include "includes/v-sidebar.html" %}
+							</div>
+						</div>
+						<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+							<div class="user-dashboard loader-holder">
+								<div class="user-holder">
+									<h5 class="text-uppercase fw-bold" >BUILD YOUR Restaurant MENU</h5>
+                                    <hr>
+                                    <h6 class="text-uppercase  fw-bold">Add Food Items</h6>
+                                    <br>
+									<!-- My Restaurants Form Start -->
+									 <form action="{% url 'edit_food' food.id %} " method="POST" enctype="multipart/form-data">
+
+										{% csrf_token %}
+<div class="form-fields-set">
+<div class="row">
+	<div class="col-lg-12 col-md-12 col-sm-12">
+		<div class="field-holder">
+			<label >Title*</label>
+			{{form.title}}
+		</div>
+
+			<div class="field-holder">
+			<label >Description</label>
+			{{form.description}}
+		</div>
+
+		<div class="field-holder">
+			<label >Price</label>
+			{{form.price}}
+		</div>
+
+		<div class="field-holder">
+			<label >Choose Category</label>
+			{{form.catagory}}
+		</div>
+
+       
+		<div class="field-holder">
+			<label >Image</label>
+             <div class="item-thumb">
+																					<img class="thumbnail" src="{{food.image.url}}" alt="" width="60">
+																				</div>
+																			</div>
+			{{form.image}}
+		</div>
+		<div class="field-holder">
+			<label >Is Available</label>
+			{{form.is_available}}
+		</div>
+
+	</div>
+</div>
+</div>
+
+{% for field in form  %}
+
+									 {% if field.errors %}
+									 {% for error in field.errors  %}
+									 <li style='color:red'>{{error}}</li>
+									 {% endfor %}
+									 
+									 
+									 
+									 {% endif %}
+									 
+									 {% endfor %}
+
+<button type="submit" class="btn btn-info"> <i class="fa fa-check " ></i>  UPDATE </button>
+
+
+									 </form>
+                                     
+									 
+
+									<!-- My Restaurants Form End -->
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+<div class="show-notification">
+
+    {% include "includes/alerts.html" %}
+
+</div>
+
+                                                   
+                                                
+{% endblock content %}
+
+
+

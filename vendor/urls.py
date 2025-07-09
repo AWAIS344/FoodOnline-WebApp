@@ -20,8 +20,8 @@ urlpatterns = [
     #footitem
     # path("menu-builder/catagory/<int:pk>",views.Food_Item_By_Catagory,name="food_item_by_catagory"),
     path("menu-builder/food/add",views.Add_Fooditem,name="add_food"),
-    # path("menu-builder/catagory/edit/<int:pk>",views.Edit_Catagory,name="edit_catagory"),
-    # path("menu-builder/catagory/delete/<int:pk>",views.Delete_Catagory,name="delete_catagory"),
+    path("menu-builder/food/edit/<int:pk>",views.Edit_Food,name="edit_food"),
+    path("menu-builder/food/delete/<int:pk>",views.Delete_Food,name="delete_food"),
 
 
 
