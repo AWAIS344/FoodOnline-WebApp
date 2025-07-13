@@ -35,8 +35,16 @@ def send_email_verfication(request,user,mail_subject,email_template):
     except Exception as e:
         print(f"Error sending email: {e}")   
 
-def send_notification(mail_template,context,mail_subject):
+def send_notification(mail_template, context, mail_subject):
     from_email = settings.DEFAULT_FROM_EMAIL
-    to_email=context['user'].email
-    message=render_to_string(mail_template,context)
+    to_email = context['user'].email
+    message = render_to_string(mail_template, context)
+
     mail = EmailMessage(mail_subject, message, from_email, to=[to_email])
+    mail.content_subtype = "html"  # Make the email HTML
+
+    try:
+        mail.send()
+        print("✅ Email sent to", to_email)
+    except Exception as e:
+        print("❌ Email failed:", e)

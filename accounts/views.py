@@ -63,16 +63,29 @@ def login(request):
         return redirect("myaccount")
 
     if request.method == 'POST':
-        email=request.POST['email']
-        password=request.POST['password']
+        email = request.POST['email']
+        password = request.POST['password']
 
-        user=auth.authenticate(email=email,password=password)
+        user = auth.authenticate(email=email, password=password)
+
         if user is not None:
-            auth.login(request,user)
-            messages.success(request,"You have Successfully Loggedin!")
-            return redirect("myaccount")
+            try:
+                vendor = user.user  # because of related_name="user"
+                if vendor.is_approved:
+                    auth.login(request, user)
+                    messages.success(request, "You have Successfully Logged in!")
+                    return redirect("myaccount")
+                else:
+                    messages.error(request, "Please wait, your account is being approved.")
+                    return redirect("login")
+            except Vendor.DoesNotExist:
+                # Not a vendor
+                auth.login(request, user)
+                messages.success(request, "You have Successfully Logged in!")
+                return redirect("myaccount")
         else:
-            messages.error(request,"Invalid Credentials")
+            messages.error(request, "Invalid credentials.")
+            return redirect("login")
         
     return render(request,"login.html",)
 

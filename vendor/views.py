@@ -11,7 +11,8 @@ from accounts.utils import send_email_verfication
 from menu.models import Catagory,FoodItems
 
 from menu.form import CatagoryForm,FoodItemsForm
-from django.utils.text import slugify
+# from django.utils.text import slugify
+from django.template.defaultfilters import slugify
 
 
 def get_vendor(request):
@@ -35,16 +36,18 @@ def RegisterVendor(request):
             vendor = v_form.save(commit=False)
             user_profile, created = UserProfile.objects.get_or_create(user=user)
             vendor.user = user
+            vendor_name=v_form.cleaned_data['vendor_name']
+            vendor.vendor_slug=slugify(vendor_name)+"-"+str(user.id)
             vendor.user_profile=user_profile
             vendor.save()
             mail_subject = "FooodOnline Activate Your Acccount"
-            email_template="email/forgot_email.html"
+            email_template="email/account_verfication.html"
             send_email_verfication(request,user,mail_subject,email_template)
             messages.success(request,"Your <strong>Restaurent</strong> has successfully Registered! Please wait for Approval - Thanks")
             return redirect("registervendor")
 
         else:
-            print("FORM ISSUE")
+            print("FORM ISSUE") 
             print(form.errors)
             print(v_form.errors)
 
