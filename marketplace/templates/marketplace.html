@@ -56,7 +56,7 @@
 													</div>
 													<div class="post-title">
 														<h5>
-															<a href="listing-detail.html">{{vend.vendor_name}}</a>
+															<a href="{% url 'detail_page' vend.vendor_slug %}">{{vend.vendor_name}}</a>
 															
 														</h5>
                                                         {% if vend.user_profile.address %}
@@ -74,7 +74,7 @@
 												</div>
 												<div class="list-option">
 
-													<a href="#" class="viewmenu-btn text-color">View Menu</a>
+													<a href="{% url 'detail_page' vend.vendor_slug %}" class="viewmenu-btn text-color">View Menu</a>
 												</div>
 											</li>
 											

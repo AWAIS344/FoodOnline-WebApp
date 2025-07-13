@@ -22,7 +22,7 @@ class Catagory(models.Model):
 
 class FoodItems(models.Model):
     vendor=models.ForeignKey(Vendor,on_delete=models.CASCADE)
-    catagory=models.ForeignKey(Catagory,on_delete=models.CASCADE)
+    catagory=models.ForeignKey(Catagory,on_delete=models.CASCADE , related_name="fooditems")
     title=models.CharField(max_length=100)
     price=models.DecimalField(max_digits=10,decimal_places=2)
     image=models.ImageField(upload_to="foodimages")
