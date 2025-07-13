@@ -30,8 +30,12 @@
 										<div class="text-holder">
 											<span class="restaurant-title">{{vendor.vendor_name}}</span>
 											<div class="text">
-												<i class="icon-local_pizza"></i>
-												<p>Apple Juice</p>
+                                                {% if vendor.user_profile.address %}
+										<div class="text">
+											<i class="icon-location"></i>
+											<p>{{vendor.user_profile.address}}</p>
+										</div>
+										{% endif %}
 											</div>
 										</div>
 									</div>
@@ -120,7 +124,7 @@
                                                         {% for food in  cat.available_foods %}
 
 														<li>
-															<div class="image-holder"> <a href="assets/extra-images/cover-photo12-1024x187.jpg"><img src="assets/extra-images/cover-photo12-150x150.jpg" alt=""></a></div>
+															<div class="image-holder"> <a href="#"><img src="{{food.image.url}}" alt=""></a></div>
 															<div class="text-holder">
 																<h6>{{food.title}}</h6>
 																<span>{{food.description}}</span>
@@ -134,7 +138,7 @@
 
 
                                                         {% empty%}
-                                                        <h4>No Food to show</h4>
+                                                        <h6>No Food to show for {{cat}}</h6>
                                                         {% endfor %}
 													</ul>
 
