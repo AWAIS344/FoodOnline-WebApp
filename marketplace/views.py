@@ -1,4 +1,4 @@
-from django.shortcuts import render,get_object_or_404
+from django.shortcuts import render,get_object_or_404,HttpResponse
 from vendor.models  import Vendor
 from menu.models import Catagory,FoodItems
 from django.db.models import Prefetch
@@ -29,3 +29,6 @@ def Detail_Page(request,vendor_slug):
     }
     return render(request,"detail_page.html",context)
 
+
+def Add_to_Cart(request,food_id=None):
+    return HttpResponse("cart")
