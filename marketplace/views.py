@@ -24,7 +24,12 @@ def Detail_Page(request,vendor_slug):
 
     catagory=Catagory.objects.filter(vendor=vendor).prefetch_related(Prefetch("fooditems",queryset=FoodItems.objects.filter(is_available=True),to_attr='available_foods'))
 
+    if request.user.is_authenticated:
+        cart_items=Cart.objects.filter(user=request.user)
+    else:
+        cart_items=None
     context={
+        'cart_items':cart_items,
         "vendor":vendor,
         "catagory":catagory,
     }
