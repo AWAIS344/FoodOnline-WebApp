@@ -3,6 +3,7 @@ from vendor.models  import Vendor
 from menu.models import Catagory,FoodItems
 from django.db.models import Prefetch
 from django.http import JsonResponse
+from .context_processors import get_cart_counter
 from .models import Cart
 
 # Create your views here.
@@ -46,11 +47,11 @@ def Add_to_Cart(request,food_id=None):
                     chkCart=Cart.objects.get(user=request.user, fooditem=food_item)
                     chkCart.quantity +=1
                     chkCart.save()
-                    return JsonResponse({"status":"success","message":"Quantity Updated"})
+                    return JsonResponse({"status":"success","message":"Quantity Updated" ,"cart_counter":get_cart_counter(request)})
 
                 except:
                     chkCart=Cart.objects.create(user=request.user, fooditem=food_item, quantity=1)
-                    return JsonResponse({"status":"success","message":"Added to Cart"})
+                    return JsonResponse({"status":"success","message":"Added to Cart","cart_counter":get_cart_counter(request)})
 
 
             except:
