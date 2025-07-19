@@ -59,6 +59,6 @@ def Add_to_Cart(request,food_id=None):
         else:
             return JsonResponse({"status":"failed","message":"Invalid Request"})
 
-        # return JsonResponse({"status":"success","message":"You are Logged In"})
+        
     else:
         return JsonResponse({"status":"failed","message":"Please Login First"})
