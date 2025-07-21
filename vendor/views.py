@@ -23,8 +23,7 @@ def RegisterVendor(request):
     if request.user.is_authenticated:
         messages.info(request, "Your Restaurent is Already Registered")
         return redirect('myaccount')
-    # form=UserRegForm()
-    # v_form=VendorRegForm()
+
     if request.method =="POST":
         form=UserRegForm(request.POST)
         v_form=VendorRegForm(request.POST,request.FILES)
