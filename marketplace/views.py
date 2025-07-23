@@ -47,13 +47,12 @@ def Add_to_Cart(request,food_id=None):
                     chkCart=Cart.objects.get(user=request.user, fooditem=food_item)
                     chkCart.quantity +=1
                     chkCart.save()
-                    return JsonResponse({"status":"success","message":"Quantity Updated" ,"cart_counter":get_cart_counter(request)})
+                    return JsonResponse({"status":"success","message":"Quantity Updated" ,"cart_counter":get_cart_counter(request),"qty":chkCart.quantity})
 
                 except:
                     chkCart=Cart.objects.create(user=request.user, fooditem=food_item, quantity=1)
-                    return JsonResponse({"status":"success","message":"Added to Cart","cart_counter":get_cart_counter(request)})
-
-
+                    return JsonResponse({"status":"success","message":"Added to Cart","cart_counter":get_cart_counter(request),"qty":chkCart.quantity})
+                
             except:
                 return JsonResponse({"status":"failed","message":"This Food Doesnt Exit"})
         else:
