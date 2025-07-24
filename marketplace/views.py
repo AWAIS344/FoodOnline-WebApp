@@ -61,3 +61,35 @@ def Add_to_Cart(request,food_id=None):
         
     else:
         return JsonResponse({"status":"failed","message":"Please Login First"})
+    
+
+def Decrease_Cart(request,food_id=None):
+    if request.user.is_authenticated:
+        if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+            try:
+                food_item=FoodItems.objects.get(id=food_id)
+
+                try:
+                    chkCart=Cart.objects.get(user=request.user, fooditem=food_item)
+                    if chkCart.quantity > 1:
+
+                        chkCart.quantity -=1
+                        chkCart.save()
+                    else:
+                        chkCart.delete()
+                        chkCart.quantity=0
+                    
+                    return JsonResponse({"status":"success","message":"Quantity Updated" ,"cart_counter":get_cart_counter(request),"qty":chkCart.quantity })
+
+                except:
+                     
+                    return JsonResponse({"status":"success","message":"You dont have this item in your cart",})
+                
+            except:
+                return JsonResponse({"status":"failed","message":"This Food Doesnt Exit"})
+        else:
+            return JsonResponse({"status":"failed","message":"Invalid Request"})
+
+        
+    else:
+        return JsonResponse({"status":"failed","message":"Please Login First"})
