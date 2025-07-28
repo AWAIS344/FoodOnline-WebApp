@@ -117,17 +117,17 @@ $(document).ready(function(){
         url=$(this).attr("data-url");
 
         
-        // $.ajax({
-        //     type:"GET",
-        //     url:url,
-        //     success : function(response){
-        //         console.log(response)
+        $.ajax({
+            type:"GET",
+            url:url,
+            success : function(response){
+                console.log(response)
                 
-        //         $("#cart_counter").html(response.cart_counter['cart_count']);
-        //         $("#qty-"+food_id).html(response.qty);
-        //     }
+                $("#cart_counter").html(response.cart_counter['cart_count']);
+                $("#qty-"+food_id).html(response.qty);
+            }
 
-        // })
+        })
     })
 
     
